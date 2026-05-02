@@ -1,0 +1,65 @@
+.PokemonList{
+  display: grid;
+  max-width: 1200px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 3rem auto 0;
+  padding: 0 1rem 3rem;
+}
+
+@media (max-width: 992px) {
+  .PokemonList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .PokemonList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .PokemonList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.pagination-container .ant-pagination {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-container .ant-pagination-item {
+  border-radius: 6px;
+}
+
+.pagination-container .ant-pagination-item-active {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.pagination-container .ant-pagination-item-active a {
+  color: white;
+}
+
+.pagination-container .ant-pagination-options {
+  margin-left: 1rem;
+}
+
+.pagination-container .ant-pagination-total-text {
+  margin-right: 1rem;
+  color: #666;
+  font-weight: 500;
+}

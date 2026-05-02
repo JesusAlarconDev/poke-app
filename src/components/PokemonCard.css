@@ -1,0 +1,32 @@
+.generation {
+  padding: 5px;
+  border-radius: 20px;
+  background-color: #f53737;
+  color: white;
+  font-weight: 500;
+}
+
+span.generation-ii {
+  background-color: #D4AF37;
+}
+span.generation-iii {
+  background-color: #00A859;
+}
+span.generation-iv {
+  background-color: #5FBDC7;
+}
+span.generation-v {
+  background-color: #333333;
+}
+span.generation-vi {
+  background-color: #005AA2;
+}
+span.generation-vii {
+  background-color: #FF8C00;
+}
+span.generation-viii {
+  background-color: #00AEEF;
+}
+span.generation-ix {
+  background-color: #6039AB;
+}
