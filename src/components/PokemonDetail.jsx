@@ -29,6 +29,7 @@ const PokemonDetail = () => {
   // The API returns two different endpoints for the same pokemon, so we need to combine them
   // for obtain all the data of the pokemon
   useEffect(() => {
+    setError(null);
     dispatch(setLoading(true));
     axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
     .then(res => {
@@ -42,7 +43,7 @@ const PokemonDetail = () => {
             dispatch(setLoading(false));
         })
     })
-    .catch(error => console.log('Error: ' + error + "Pokemon value: " + JSON.stringify(pokemon)))
+    .catch(error => setError(error))
   }, [id]);
 
   const pokedexSpeak = (text) => {
