@@ -1,0 +1,124 @@
+.not-found-container {
+  max-width: 440px;
+  min-height: 60vh;
+  margin: 0 auto;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(147, 51, 234, 0.15);
+}
+
+/* Ditto Character Styles */
+.ditto-container {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.ditto-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(147, 51, 234, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.ditto-image:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Error Content Styles */
+.error-content {
+  text-align: center;
+  color: #9333ea;
+  max-width: 400px;
+  z-index: 2;
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 5px 15px rgba(147, 51, 234, 0.3);
+  background: linear-gradient(45deg, #9333ea, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  line-height: 1.6;
+  opacity: 0.8;
+  color: #6d28d9;
+  text-shadow: none;
+}
+
+.error-actions {
+  margin-top: 1.5rem;
+}
+
+.home-button {
+  background: linear-gradient(45deg, #3B4CCA, #2a3a8a);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 5px 20px rgba(59, 76, 202, 0.4);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 76, 202, 0.6);
+  background: linear-gradient(45deg, #2a3a8a, #1f2960);
+  color: white;
+}
+
+
+@media (max-width: 768px) {
+  .ditto-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .error-code {
+    font-size: 4rem;
+  }
+  
+  .error-message {
+    font-size: 0.9rem;
+  }
+  
+  .not-found-container {
+    padding: 1rem;
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .ditto-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .error-code {
+    font-size: 3rem;
+  }
+  
+  .error-message {
+    font-size: 0.8rem;
+  }
+  
+  .not-found-container {
+    min-height: 45vh;
+  }
+}

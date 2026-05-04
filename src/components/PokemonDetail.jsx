@@ -13,6 +13,7 @@ import { capitalize } from '../utils/capitalizeUtils';
 import { getEnglishFlavorText, getEnglishGenus } from '../utils/flavorTextUtils';
 import { Button } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import NotFound from "./NotFound";
 
 const PokemonDetail = () => {
   const {id} = useParams();
@@ -22,6 +23,7 @@ const PokemonDetail = () => {
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [activeTab, setActiveTab] = useState('official');
   const loading = useSelector((state) => state.loading);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
   // The API returns two different endpoints for the same pokemon, so we need to combine them
@@ -40,7 +42,7 @@ const PokemonDetail = () => {
             dispatch(setLoading(false));
         })
     })
-    .catch(error => console.log('Error: ' + error))
+    .catch(error => console.log('Error: ' + error + "Pokemon value: " + JSON.stringify(pokemon)))
   }, [id]);
 
   const pokedexSpeak = (text) => {
@@ -81,6 +83,8 @@ const PokemonDetail = () => {
 
   return (
     <div className="pokemon-detail-container">
+        {error && (<NotFound />)}
+
         {pokemon ? (
           <div className="pokedex-container">
             <div className="back-button-container">
