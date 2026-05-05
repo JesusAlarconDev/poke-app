@@ -10,9 +10,13 @@ Bienvenido a mi app de Pokemon, PokeApp. Esta app permite listar a todos los 102
 
 ## 🌐 Demo en Vivo
 
-**¡Prueba la aplicación aquí!** 👉 [Ver Demo]()
+**¡Prueba la aplicación aquí!** 👉🚀 [Ver Demo](https://poke-app-one-nu.vercel.app/)
 
 ### 🎥 Video Demostrativo
+
+<a href="https://youtube.com/watch?v=w1oqGJVk4NM" target="_blank">
+  <img src="https://img.youtube.com/vi/w1oqGJVk4NM/hqdefault.jpg" alt="Video Demo" width="600">
+</a>
 
 ## 📋 Características
 
