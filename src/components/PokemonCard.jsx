@@ -25,7 +25,7 @@ const PokemonCard = ({name, image, isFavorite, types, id, generation}) => {
   }
 
   const handleOnFavorite = () => {
-    dispatch(setFavorite({pokemonId: id}));
+    dispatch(setFavorite(id));
   }
 
   return (

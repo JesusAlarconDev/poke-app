@@ -3,10 +3,12 @@ import './PokemonList.css'
 import { Pagination } from 'antd';
 import { useState } from 'react';
 import { capitalize } from '../utils/capitalizeUtils';
+import { useSelector } from 'react-redux';
 
 const PokemonList = ({pokemons = Array(10).fill(''), search}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
+  const favorites = useSelector((state) => state.favorites);
 
   const filteredPokemons = search ? pokemons.filter(pokemon => pokemon.name.includes(search.toLowerCase())) : pokemons;
 
@@ -32,7 +34,7 @@ const PokemonList = ({pokemons = Array(10).fill(''), search}) => {
             <PokemonCard 
               id={pokemon.id} 
               name={capitalize(pokemon.name)} 
-              isFavorite={pokemon.favorite? pokemon.favorite : false} 
+              isFavorite={favorites.includes(pokemon.id)} 
               key={pokemon.name} 
               image={pokemon.sprites.other["official-artwork"].front_default} 
               types={pokemon.types} 

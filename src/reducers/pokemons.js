@@ -1,8 +1,11 @@
 import { SET_FAVORITE, SET_LOADING, SET_POKEMONS } from "../actions/types";
 
+const favoritesFromLS = JSON.parse(localStorage.getItem('favorites')) || [];
+
 const initialState = {
   pokemons: [],
-  loading: false
+  loading: false,
+  favorites: favoritesFromLS
 };
 
 export const pokemonsReducer = (state = initialState, action) => {
@@ -13,24 +16,21 @@ export const pokemonsReducer = (state = initialState, action) => {
         pokemons: action.payload
       }
     case SET_FAVORITE:
-      const newPokemonList = [...state.pokemons];
-      const currentPokemonIndex = newPokemonList.findIndex(
-        (pokemon) => {
-          return pokemon.id === action.payload.pokemonId;
-      
-        });
-
-      if(currentPokemonIndex < 0){
-        return {
+      let newState = {};
+      if(state.favorites.includes(action.payload)) {
+        newState = {
           ...state,
-        }
+          favorites: state.favorites.filter((favorite) => favorite !== action.payload).sort((a,b) => a - b)
+        };
+      } else {
+        newState = {
+          ...state,
+          favorites: [...state.favorites, action.payload].sort((a,b) => a - b)
+        };
       }
-      
-      newPokemonList[currentPokemonIndex].favorite = !newPokemonList[currentPokemonIndex].favorite;
-      return {
-        ...state, 
-        pokemons: newPokemonList
-      }
+
+      localStorage.setItem('favorites', JSON.stringify(newState.favorites));
+      return newState;
     case SET_LOADING:
       return {
         ...state, 
