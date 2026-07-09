@@ -1,0 +1,49 @@
+.favorites-container {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.favorite-card {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  background-color: rgb(238,43,52);
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 200px;
+}
+
+.favorite-card img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 0px;
+  transition: none;
+  object-fit: cover;
+}
+
+.favorite-card img:hover {
+  animation: bounce 0.5s infinite;
+}
+
+.favorite-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

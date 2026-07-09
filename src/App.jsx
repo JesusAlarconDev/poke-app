@@ -10,6 +10,7 @@ import iconoPokeApp from './assets/icono-poke-app.png'
 import { Routes, Route, Link } from 'react-router-dom'
 import PokemonDetail from './components/PokemonDetail'
 import NotFound from './components/NotFound'
+import Favorites from './components/Favorites'
 
 function App() {
   const pokemons = useSelector((state) => state.pokemons);
@@ -53,6 +54,7 @@ function App() {
       } />
 
       <Route path="/pokemon/:id" element={<PokemonDetail />} />
+      <Route path="/favorites" element={<Favorites />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     
