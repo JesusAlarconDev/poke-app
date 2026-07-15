@@ -17,8 +17,7 @@ const NotFound = () => {
         </div>
 
         <p className="error-message">
-          This page seems to have transformed into something else, just like Ditto!
-          The Pokémon you're looking for doesn't exist here.
+          Oops!! It's a Ditto. The page you're looking for doesn't exist
         </p>
         
         <div className="error-actions">
