@@ -11,6 +11,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import PokemonDetail from './components/PokemonDetail'
 import NotFound from './components/NotFound'
 import Favorites from './components/Favorites'
+import UserMenu from './components/UserMenu'
 
 function App() {
   const pokemons = useSelector((state) => state.pokemons);
@@ -37,6 +38,7 @@ function App() {
           <img src={iconoPokeApp} alt="Logo" className='logo' />
         </Link>
       </Col>
+      <UserMenu />
     <Routes>
       <Route path="/" element={
         <div>

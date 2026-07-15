@@ -1,0 +1,24 @@
+.user-menu {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  z-index: 1000;
+}
+
+.user-avatar {
+  cursor: pointer;
+  background-color: rgb(238, 43, 52);
+  border: 2px solid white;
+  transition: transform 0.2s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+
+@media screen and (max-width: 480px) {
+  .user-menu {
+    right: 20px;
+  }
+}
