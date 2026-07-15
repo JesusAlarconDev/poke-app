@@ -4,6 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .favorite-card {
@@ -45,5 +46,12 @@
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .favorites-container {
+    margin: 20px auto;
+    width: 90%;
   }
 }
