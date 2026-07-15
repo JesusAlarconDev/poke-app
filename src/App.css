@@ -43,3 +43,10 @@ footer {
   color: #666;
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 768px) {
+  .logo {
+    margin: 0 auto;
+    display: block;
+  }
+}

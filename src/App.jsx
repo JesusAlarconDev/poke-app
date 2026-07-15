@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Col span={8} offset={8}>
+      <Col xs={24} sm={24} md={{ span: 8, offset: 8 }} lg={{ span: 8, offset: 8 }} xl={{ span: 8, offset: 8 }} xxl={{ span: 8, offset: 8 }} style={{ textAlign: 'center' }}>
         <h2>PokeApp</h2>
         
         <Link to="/">
