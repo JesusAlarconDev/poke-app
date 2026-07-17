@@ -12,6 +12,8 @@ import PokemonDetail from './components/PokemonDetail'
 import NotFound from './components/NotFound'
 import Favorites from './components/Favorites'
 import UserMenu from './components/UserMenu'
+import Register from './components/Register'
+import Login from './components/Login'
 
 function App() {
   const pokemons = useSelector((state) => state.pokemons);
@@ -57,6 +59,8 @@ function App() {
 
       <Route path="/pokemon/:id" element={<PokemonDetail />} />
       <Route path="/favorites" element={<Favorites />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     
