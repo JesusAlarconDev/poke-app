@@ -1,11 +1,11 @@
 import {Card} from 'antd';
-import './PokemonCard.css';
+import './index.css';
 import Meta from 'antd/es/card/Meta';
-import StarButton from './StarButton';
+import StarButton from '../StarButton';
 import { useDispatch } from 'react-redux';
-import { setFavorite } from '../actions';
+import { setFavorite } from '../../actions';
 import { Link } from 'react-router-dom';
-import { generationName } from '../utils/generationName';
+import { generationName } from '../../utils/generationName';
 
 
 const PokemonCard = ({name, image, isFavorite, types, id, generation}) => {

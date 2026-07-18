@@ -12,8 +12,8 @@ import PokemonDetail from './components/PokemonDetail'
 import NotFound from './components/NotFound'
 import Favorites from './components/Favorites'
 import UserMenu from './components/UserMenu'
-import Register from './components/Register'
-import Login from './components/Login'
+import Register from './components/Auth/Register'
+import Login from './components/Auth/Login'
 
 function App() {
   const pokemons = useSelector((state) => state.pokemons);

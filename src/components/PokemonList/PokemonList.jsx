@@ -2,7 +2,7 @@ import PokemonCard from "./PokemonCard"
 import './PokemonList.css'
 import { Pagination } from 'antd';
 import { useState } from 'react';
-import { capitalize } from '../utils/capitalizeUtils';
+import { capitalize } from '../../utils/capitalizeUtils';
 import { useSelector } from 'react-redux';
 
 const PokemonList = ({pokemons = Array(10).fill(''), search}) => {

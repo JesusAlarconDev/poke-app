@@ -2,15 +2,15 @@ import axios from "axios";
 import "./PokemonDetail.css"
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { generationName } from "../utils/generationName"
+import { generationName } from "../../utils/generationName"
 import pokedexImage from "../assets/pokedex.png"
 import { SoundFilled } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLoading } from '../actions';
+import { setLoading } from '../../actions';
 import Loading from './Loading';
-import { capitalize } from '../utils/capitalizeUtils';
-import { getEnglishFlavorText, getEnglishGenus } from '../utils/flavorTextUtils';
+import { capitalize } from '../../utils/capitalizeUtils';
+import { getEnglishFlavorText, getEnglishGenus } from '../../utils/flavorTextUtils';
 import { Button } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import NotFound from "./NotFound";

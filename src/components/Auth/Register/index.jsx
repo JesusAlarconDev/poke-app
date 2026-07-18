@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import './Register.css'
+import '../index.css'
 import { Link } from 'react-router-dom'
-import { generations } from '../statics/generations.js'
+import { generations } from '../../../statics/generations.js'
     
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -11,12 +11,54 @@ const Register = () => {
         email: '',
         password: ''
     });
+    const {name, lastname, picture, email, password} = formData;
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState('');
     const [selectedGeneration, setSelectedGeneration] = useState(null);
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
         console.log(formData);
         const REGISTER_URL = "/api/users/register";
+
+        // TODO: create a function that validates the input of the forms
+        if (!name) {
+            setError('El nombre es obligatorio');
+            setLoading(false);
+            return;
+        }
+        try {
+            const response = await fetch(REGISTER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error en el registro');
+            }
+    
+            const data = await response.json();
+            const jwtToken = data.token; 
+            const userInfo = data.user;
+    
+            if (jwtToken) {
+                loginWithToken(jwtToken, userInfo);
+                navigate('/');
+            } else {
+                throw new Error('El servidor no retornó un token.');
+            }
+    
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleGenerationSelect = (generation) => {

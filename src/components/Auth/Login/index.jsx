@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './Register.css'
+import '../index.css'
 import { Link } from 'react-router-dom'
 
 
@@ -8,10 +8,49 @@ const Login = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
-       
+        setError('');
+        setLoading(true);
+
+        const LOGIN_URL = '/api/users/login'; 
+
+        try {
+            const response = await fetch(LOGIN_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({  
+                    email: email,
+                    password: password,
+                }),
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error en el inicio de sesión');
+            }
+    
+            const data = await response.json();
+            const jwtToken = data.token; 
+            const userInfo = data.user;
+
+            if (jwtToken) {
+                loginWithToken(jwtToken, userInfo);
+                navigate('/');
+            } else {
+                throw new Error('El servidor no retornó un token.');
+            }
+    
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
   return (

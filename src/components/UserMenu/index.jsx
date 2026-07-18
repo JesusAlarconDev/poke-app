@@ -1,9 +1,13 @@
 import { Dropdown, Avatar } from 'antd'
 import { UserOutlined, HeartOutlined, HomeOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
-import './UserMenu.css'
+import { useState } from 'react'
+import Profile from '../Profile'
+import './index.css'
 
 const UserMenu = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
   const menuItems = [
     {
       key: 'home',
@@ -18,7 +22,7 @@ const UserMenu = () => {
     {
       key: 'profile',
       icon: <UserOutlined />,
-      label: <Link to="/profile">Profile</Link>
+      label: <span onClick={() => setIsProfileOpen(true)} style={{ cursor: 'pointer' }}>Profile</span>
     },
   ]
 
@@ -31,6 +35,7 @@ const UserMenu = () => {
           className="user-avatar"
         />
       </Dropdown>
+      <Profile isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </div>
   )
 }

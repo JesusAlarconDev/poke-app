@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import './Favorites.css'
-import StarButton from './StarButton'
-import { capitalize } from '../utils/capitalizeUtils'
+import './index.css'
+import StarButton from '../StarButton'
+import { capitalize } from '../../utils/capitalizeUtils'
 import { Link } from 'react-router'
-import { setFavorite } from '../actions'
-import Loading from './Loading'
+import { setFavorite } from '../../actions'
+import Loading from '../Loading'
 
 const Favorites = () => {
   const pokemons = useSelector((state) => state.pokemons);
