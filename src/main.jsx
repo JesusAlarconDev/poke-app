@@ -4,7 +4,9 @@ import './index.css'
 import App from './App.jsx'
 import 'antd/dist/reset.css';
 import { Provider } from 'react-redux';
+import { combineReducers } from 'redux';
 import { pokemonsReducer } from './reducers/pokemons.js';
+import { userReducer } from './reducers/user.js';
 import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux';
 import { logger } from './middlewares/index.js';
 import { thunk } from 'redux-thunk';
@@ -16,8 +18,13 @@ const composedEnhancers = composeAlt(
   applyMiddleware(logger, thunk)
 )
 
+const rootReducer = combineReducers({
+  pokemons: pokemonsReducer,
+  user: userReducer
+})
+
 const store = createStore(
-  pokemonsReducer,
+  rootReducer,
   composedEnhancers
 );
 

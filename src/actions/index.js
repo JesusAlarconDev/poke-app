@@ -1,5 +1,5 @@
 import { getPokemonDetails } from "../api";
-import { SET_FAVORITE, SET_LOADING, SET_POKEMONS } from "./types"
+import { SET_FAVORITE, SET_LOADING, SET_POKEMONS, SET_USER, SET_TOKEN, LOGOUT } from "./types"
 
 export const setPokemons = (payload) => ({
   type: SET_POKEMONS,
@@ -23,3 +23,17 @@ export const getPokemonswithDetails =
     
     dispatch(setPokemons(pokemonsDetailed)); 
   }
+
+export const setUser = (payload) => ({
+  type: SET_USER,
+  payload
+});
+
+export const setToken = (payload) => ({
+  type: SET_TOKEN,
+  payload
+});
+
+export const logout = () => ({
+  type: LOGOUT
+});
