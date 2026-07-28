@@ -4,11 +4,14 @@ import { Pagination } from 'antd';
 import { useState } from 'react';
 import { capitalize } from '../../utils/capitalizeUtils';
 import { useSelector } from 'react-redux';
+import { Col, Spin } from 'antd';
+import Searcher from '../Searcher';
 
-const PokemonList = ({pokemons = Array(10).fill(''), search}) => {
+const PokemonList = ({pokemons = Array(10).fill(''), loading}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
-  const favorites = useSelector((state) => state.favorites);
+  const favorites = useSelector((state) => state.pokemons.favorites);
+  const [search, setSearch] = useState('');
 
   const filteredPokemons = search ? pokemons.filter(pokemon => pokemon.name.includes(search.toLowerCase())) : pokemons;
 
@@ -28,35 +31,44 @@ const PokemonList = ({pokemons = Array(10).fill(''), search}) => {
 
   return (
     <div>
-      <div className="PokemonList">
-        {currentPokemons.map((pokemon) => {
-          return ( 
-            <PokemonCard 
-              id={pokemon.id} 
-              name={capitalize(pokemon.name)} 
-              isFavorite={favorites.includes(pokemon.id)} 
-              key={pokemon.name} 
-              image={pokemon.sprites.other["official-artwork"].front_default} 
-              types={pokemon.types} 
-              generation={pokemon.generation} 
-            /> );
-        })}
-      </div>
+      <Col span={8} offset={8}>
+        <Searcher search={search} setSearch={setSearch} className='searcher' />
+      </Col>
+      {loading ? (<Col offset={12}>
+        <Spin spinning size='large'/>
+      </Col> ) : (
+      <Col span={21}>
+        <div className="PokemonList">
+          {currentPokemons.map((pokemon) => {
+            return ( 
+              <PokemonCard 
+                id={pokemon.id} 
+                name={capitalize(pokemon.name)} 
+                isFavorite={favorites.includes(pokemon.id)} 
+                key={pokemon.name} 
+                image={pokemon.sprites.other["official-artwork"].front_default} 
+                types={pokemon.types} 
+                generation={pokemon.generation} 
+              /> );
+          })}
+        </div>
       
-      <div className="pagination-container">
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={filteredPokemons.length}
-          onChange={onChange}
-          onShowSizeChange={onShowSizeChange}
-          showSizeChanger
-          showQuickJumper
-          showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} pokemons`}
-          pageSizeOptions={['8', '12', '16', '24']}
-          defaultPageSize={12}
-        />
-      </div>
+        <div className="pagination-container">
+          <Pagination
+            current={currentPage}
+            pageSize={pageSize}
+            total={filteredPokemons.length}
+            onChange={onChange}
+            onShowSizeChange={onShowSizeChange}
+            showSizeChanger
+            showQuickJumper
+            showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} pokemons`}
+            pageSizeOptions={['8', '12', '16', '24']}
+            defaultPageSize={12}
+          />
+        </div>
+      </Col>
+      )}
     </div>
   )
 }

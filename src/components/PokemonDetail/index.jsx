@@ -22,7 +22,7 @@ const PokemonDetail = () => {
   const [pokemon, setPokemon] = useState(null);
   const [selectedVoice, setSelectedVoice] = useState(null);
   const [activeTab, setActiveTab] = useState('official');
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.pokemons.loading);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 

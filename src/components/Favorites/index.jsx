@@ -8,8 +8,8 @@ import { setFavorite } from '../../actions'
 import Loading from '../Loading'
 
 const Favorites = () => {
-  const pokemons = useSelector((state) => state.pokemons);
-  const favorites = useSelector((state) => state.favorites);
+  const pokemons = useSelector((state) => state.pokemons.pokemons);
+  const favorites = useSelector((state) => state.pokemons.favorites);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
