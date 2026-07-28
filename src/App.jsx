@@ -14,11 +14,11 @@ import Favorites from './components/Favorites'
 import UserMenu from './components/UserMenu'
 import Register from './components/Auth/Register'
 import Login from './components/Auth/Login'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-  const pokemons = useSelector((state) => state.pokemons);
-  const loading = useSelector((state) => state.loading);
-  const [search, setSearch] = useState('');
+  const pokemons = useSelector((state) => state.pokemons.pokemons);
+  const loading = useSelector((state) => state.pokemons.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,31 +34,17 @@ function App() {
   return (
     <div className='App'>
       <Col xs={24} sm={24} md={{ span: 8, offset: 8 }} lg={{ span: 8, offset: 8 }} xl={{ span: 8, offset: 8 }} xxl={{ span: 8, offset: 8 }} style={{ textAlign: 'center' }}>
-        <h2>PokeApp</h2>
-        
+        <h2>PokeApp</h2>   
         <Link to="/">
           <img src={iconoPokeApp} alt="Logo" className='logo' />
         </Link>
       </Col>
       <UserMenu />
     <Routes>
-      <Route path="/" element={
-        <div>
-          <Col span={8} offset={8}>
-            <Searcher search={search} setSearch={setSearch} className='searcher' />
-          </Col>
-          {loading ? (<Col offset={12}>
-            <Spin spinning size='large'/>
-          </Col> ) : (
-          <Col span={21}>
-            <PokemonList pokemons={pokemons} search={search} />
-          </Col>
-          )}
-        </div>
-      } />
-
+      <Route path="/" element={<PokemonList pokemons={pokemons} loading={loading} />} />
       <Route path="/pokemon/:id" element={<PokemonDetail />} />
-      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+      {/* <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
