@@ -1,12 +1,14 @@
 import { Dropdown, Avatar } from 'antd'
-import { UserOutlined, HeartOutlined, HomeOutlined } from '@ant-design/icons'
+import { UserOutlined, HeartOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Profile from '../Profile'
 import './index.css'
+import { useAuth } from '../../hooks/useAuth'
 
 const UserMenu = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const {logout, isAuthenticated} = useAuth();
 
   const menuItems = [
     {
@@ -19,11 +21,18 @@ const UserMenu = () => {
       icon: <HeartOutlined />,
       label: <Link to="/favorites">Favorites</Link>
     },
-    {
-      key: 'profile',
-      icon: <UserOutlined />,
-      label: <span onClick={() => setIsProfileOpen(true)} style={{ cursor: 'pointer' }}>Profile</span>
-    },
+    ...(isAuthenticated ? [
+      {
+        key: 'profile',
+        icon: <UserOutlined />,
+        label: <span onClick={() => setIsProfileOpen(true)} style={{ cursor: 'pointer' }}>Profile</span>
+      },
+      {
+        key: 'logout',
+        icon: <LogoutOutlined />,
+        label: <span onClick={() => logout()} style={{ cursor: 'pointer' }}>Logout</span>
+      }
+    ] : [])
   ]
 
   return (
