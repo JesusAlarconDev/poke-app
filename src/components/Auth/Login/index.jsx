@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../index.css'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../hooks/useAuth.js'
 
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState ({
     email: '',
     password: ''
@@ -25,8 +29,8 @@ const Login = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({  
-                    email: email,
-                    password: password,
+                    email: formData.email,
+                    password: formData.password,
                 }),
             });
     
@@ -40,7 +44,7 @@ const Login = () => {
             const userInfo = data.user;
 
             if (jwtToken) {
-                loginWithToken(jwtToken, userInfo);
+                login(userInfo, jwtToken);
                 navigate('/');
             } else {
                 throw new Error('El servidor no retornó un token.');
@@ -54,7 +58,7 @@ const Login = () => {
     }
 
   return (
-      <form onSubmi={handleLogin} className="register-form">
+      <form onSubmit={handleLogin} className="register-form">
         <div>
             <label htmlFor="email">Email</label>
             <input 
@@ -76,7 +80,11 @@ const Login = () => {
             />
         </div>
                 
-        <button type="submit">Register</button>
+        <button type="submit">
+            {loading ? 'Loading...' : 'Login'}
+        </button>
+
+        {error && <span className='error-message'>{error}</span>}
 
         <Link to="/register" className='form-link'>You don't have an account yet? Sign up Here</Link>
       </ form>

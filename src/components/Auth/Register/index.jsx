@@ -1,15 +1,19 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../index.css'
 import { Link } from 'react-router-dom'
 import { generations } from '../../../statics/generations.js'
+import { useAuth } from '../../../hooks/useAuth.js'
     
 const Register = () => {
+    const navigate = useNavigate();
+    const { login } = useAuth();
     const [formData, setFormData] = useState({
+        email: '',
+        password: '',
         name: '',
         lastname: '',
-        picture: '',
-        email: '',
-        password: ''
+        picture: ''
     });
     const {name, lastname, picture, email, password} = formData;
     const [error, setError] = useState('');
@@ -26,6 +30,21 @@ const Register = () => {
         // TODO: create a function that validates the input of the forms
         if (!name) {
             setError('El nombre es obligatorio');
+            setLoading(false);
+            return;
+        }
+        if (!email) {
+            setError('El email es obligatorio');
+            setLoading(false);
+            return;
+        }
+        if (!password) {
+            setError('La contraseña es obligatoria');
+            setLoading(false);
+            return;
+        }
+        if (!picture) {
+            setError('Debes seleccionar un avatar');
             setLoading(false);
             return;
         }
@@ -48,7 +67,7 @@ const Register = () => {
             const userInfo = data.user;
     
             if (jwtToken) {
-                loginWithToken(jwtToken, userInfo);
+                login(userInfo, jwtToken);
                 navigate('/');
             } else {
                 throw new Error('El servidor no retornó un token.');
@@ -170,7 +189,9 @@ const Register = () => {
             />
         </div>
         
-      <button type="submit">Register</button>
+      <button type="submit">
+        {loading ? 'Loading...' : 'Register'}
+      </button>
 
       <Link to="/login" className='form-link'>You already have an Account?</Link>
     </form>
