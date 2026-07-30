@@ -12,15 +12,25 @@ const Login = () => {
     email: '',
     password: ''
   });
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError('');
+        setErrors({});
         setLoading(true);
 
-        const LOGIN_URL = '/api/users/login'; 
+        const LOGIN_URL = '/api/users/login';
+
+        const newErrors = {};
+        if (!formData.email) newErrors.email = 'El email es obligatorio';
+        if (!formData.password) newErrors.password = 'La contraseña es obligatoria';
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            setLoading(false);
+            return;
+        } 
 
         try {
             const response = await fetch(LOGIN_URL, {
@@ -51,7 +61,7 @@ const Login = () => {
             }
     
         } catch (error) {
-            setError(error.message);
+            setErrors({ general: error.message });
         } finally {
             setLoading(false);
         }
@@ -68,6 +78,7 @@ const Login = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="register-form-input"
             />
+            {errors.email && <span className='error-message'>{errors.email}</span>}
         </div>
         <div>
             <label htmlFor="password">Password</label>
@@ -78,13 +89,14 @@ const Login = () => {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="register-form-input"
             />
+            {errors.password && <span className='error-message'>{errors.password}</span>}
         </div>
                 
         <button type="submit">
             {loading ? 'Loading...' : 'Login'}
         </button>
 
-        {error && <span className='error-message'>{error}</span>}
+        {errors.general && <span className='error-message'>{errors.general}</span>}
 
         <Link to="/register" className='form-link'>You don't have an account yet? Sign up Here</Link>
       </ form>

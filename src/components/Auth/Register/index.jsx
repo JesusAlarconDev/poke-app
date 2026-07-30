@@ -16,35 +16,25 @@ const Register = () => {
         picture: ''
     });
     const {name, lastname, picture, email, password} = formData;
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState('');
     const [selectedGeneration, setSelectedGeneration] = useState(null);
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        setError('');
+        setErrors({});
         setLoading(true);
         console.log(formData);
         const REGISTER_URL = "/api/users/register";
 
         // TODO: create a function that validates the input of the forms
-        if (!name) {
-            setError('El nombre es obligatorio');
-            setLoading(false);
-            return;
-        }
-        if (!email) {
-            setError('El email es obligatorio');
-            setLoading(false);
-            return;
-        }
-        if (!password) {
-            setError('La contraseña es obligatoria');
-            setLoading(false);
-            return;
-        }
-        if (!picture) {
-            setError('Debes seleccionar un avatar');
+        const newErrors = {};
+        if (!name) newErrors.name = 'El nombre es obligatorio';
+        if (!email) newErrors.email = 'El email es obligatorio';
+        if (!password) newErrors.password = 'La contraseña es obligatoria';
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
             setLoading(false);
             return;
         }
@@ -74,7 +64,7 @@ const Register = () => {
             }
     
         } catch (error) {
-            setError(error.message);
+            setErrors({ general: error.message });
         } finally {
             setLoading(false);
         }
@@ -105,6 +95,7 @@ const Register = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="register-form-input"
             />
+            {errors.email && <span className='error-message'>{errors.email}</span>}
         </div>
         <div>
             <label htmlFor="password">Password</label>
@@ -115,6 +106,7 @@ const Register = () => {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="register-form-input"
             />
+            {errors.password && <span className='error-message'>{errors.password}</span>}
         </div>
         <div>
             <label htmlFor="name">Name</label>
@@ -125,6 +117,7 @@ const Register = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="register-form-input"
             />
+            {errors.name && <span className='error-message'>{errors.name}</span>}
         </div>
         <div>
             <label htmlFor="lastname">Lastname</label>
@@ -192,6 +185,8 @@ const Register = () => {
       <button type="submit">
         {loading ? 'Loading...' : 'Register'}
       </button>
+
+      {errors.general && <span className='error-message'>{errors.general}</span>}
 
       <Link to="/login" className='form-link'>You already have an Account?</Link>
     </form>

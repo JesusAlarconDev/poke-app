@@ -147,3 +147,10 @@
 .form-link:hover {
   color: rgb(238, 43, 52);
 }
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
