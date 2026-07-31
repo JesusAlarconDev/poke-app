@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { setUser, setToken, logout } from '../actions'
 
 function decodeJwtPayload(token) {
@@ -26,6 +27,7 @@ function isJwtValid(token) {
 
 export const useAuth = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {user, token} = useSelector(state => state.user);
 
     const login = (userData, token) => {
@@ -41,6 +43,7 @@ export const useAuth = () => {
     const handleLogout = () => {
         dispatch(logout());
         localStorage.removeItem('token');
+        navigate('/login');
     }
 
     const isAuthenticated = useMemo(() => isJwtValid(token), [token]);
