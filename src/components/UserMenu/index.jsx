@@ -8,8 +8,8 @@ import { useAuth } from '../../hooks/useAuth'
 
 const UserMenu = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const {logout, isAuthenticated} = useAuth();
-
+  const {logout, isAuthenticated, user} = useAuth();
+  
   const menuItems = [
     {
       key: 'home',
@@ -38,9 +38,9 @@ const UserMenu = () => {
   return (
     <div className="user-menu">
       <Dropdown menu={{ items: menuItems }} placement="bottomRight" trigger={['click']}>
-        <Avatar 
-          size={40} 
-          icon={<UserOutlined />} 
+        <Avatar
+          size={60}
+          icon={user?.picture ? <img src={user?.picture} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'contain', marginTop: '40px' }} /> : <UserOutlined />}
           className="user-avatar"
         />
       </Dropdown>

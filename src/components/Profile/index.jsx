@@ -1,19 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { generations } from '../../statics/generations.js'
 import './index.css'
 
 const Profile = ({ isOpen, onClose }) => {
-    const user = useSelector((state) => state.user);
+    const {user} = useSelector((state) => state.user);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
-        name: user?.name || '',
-        lastname: user?.lastname || '',
-        picture: user?.picture || '',
-        email: user?.email || '',
+        name: '',
+        lastname: '',
+        picture: '',
+        email: '',
         password: ''
     });
     const [selectedGeneration, setSelectedGeneration] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        setFormData({
+            name: user?.name || '',
+            lastname: user?.lastname || '',
+            picture: user?.picture || '',
+            email: user?.email || '',
+            password: ''
+        });
+    }, [user]);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -31,10 +43,30 @@ const Profile = ({ isOpen, onClose }) => {
         setSelectedGeneration(null);
     };
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
         console.log('Saving profile:', formData);
         setIsEditing(false);
+
+        try {
+            const UPDATE_URL = '/api/users/profile';
+            const response = await fetch(UPDATE_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}` 
+                },
+                body: JSON.stringify(formData)
+            })
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error al actualizar el perfil');
+            }
+            const data = await response.json();
+            console.log('Profile updated:', data);
+        } catch (err) {
+            console.error('Error updating profile:', err);
+        }
     };
 
     const handleGenerationSelect = (generation) => {

@@ -187,9 +187,9 @@
 }
 
 .avatar-option {
-  width: 60px;
-  height: 60px;
-  padding: 5px;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: white;

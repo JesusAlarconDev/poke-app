@@ -24,7 +24,7 @@ const Register = () => {
         e.preventDefault();
         setErrors({});
         setLoading(true);
-        console.log(formData);
+
         const REGISTER_URL = "/api/users/register";
 
         // TODO: create a function that validates the input of the forms
