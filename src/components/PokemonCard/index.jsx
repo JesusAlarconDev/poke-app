@@ -3,13 +3,16 @@ import './index.css';
 import Meta from 'antd/es/card/Meta';
 import StarButton from '../StarButton';
 import { useDispatch } from 'react-redux';
-import { setFavorite } from '../../actions';
+import { toggleFavorite } from '../../actions';
 import { Link } from 'react-router-dom';
 import { generationName } from '../../utils/generationName';
-
+import { useAuth } from '../../hooks/useAuth.js';
+import { useNavigate } from 'react-router-dom';
 
 const PokemonCard = ({name, image, isFavorite, types, id, generation}) => {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const typesInline  = (types) => {
     let result = "";
@@ -25,7 +28,11 @@ const PokemonCard = ({name, image, isFavorite, types, id, generation}) => {
   }
 
   const handleOnFavorite = () => {
-    dispatch(setFavorite(id));
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    dispatch(toggleFavorite(id));
   }
 
   return (
