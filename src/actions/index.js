@@ -16,6 +16,33 @@ export const setFavorite = (payload) => ({
   payload
 });
 
+export const toggleFavorite = (pokemonId) => async (dispatch, getState) => {
+  const token = getState().user.token;
+
+  try {
+    const response = await fetch('/api/users/favorites', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ favorite_id: Number(pokemonId) })
+    });
+
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Server error response:', errorData);
+      throw new Error(errorData.message || 'Error al guardar favorito');
+    }
+
+    const data = await response.json();
+    dispatch(setFavorite(data.favorites));
+  } catch (error) {
+    console.error('Error al persistir favorito:', error);
+  }
+};
+
 export const getPokemonswithDetails = 
   (pokemons = []) => 
   async (dispatch) => {

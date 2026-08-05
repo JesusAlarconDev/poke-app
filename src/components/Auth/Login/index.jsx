@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import '../index.css'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth.js'
+import { loadUserFavorites } from '../../../actions'
 
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { login } = useAuth();
   const [formData, setFormData] = useState ({
     email: '',
@@ -55,6 +58,7 @@ const Login = () => {
 
             if (jwtToken) {
                 login(userInfo, jwtToken);
+                // dispatch(loadUserFavorites());
                 navigate('/');
             } else {
                 throw new Error('El servidor no retornó un token.');
