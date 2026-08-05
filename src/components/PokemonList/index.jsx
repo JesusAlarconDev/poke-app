@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux';
 import { Col, Spin } from 'antd';
 import Searcher from '../Searcher';
 
-const PokemonList = ({pokemons = Array(10).fill(''), loading}) => {
+const PokemonList = ({pokemons, loading}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const favorites = useSelector((state) => state.pokemons.favorites);
   const [search, setSearch] = useState('');
 
-  const filteredPokemons = search ? pokemons.filter(pokemon => pokemon.name.includes(search.toLowerCase())) : pokemons;
+  const filteredPokemons = search ? pokemons.filter(pokemon => pokemon && pokemon.name && pokemon.name.includes(search.toLowerCase())) : pokemons;
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
