@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 import '../index.css'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth.js'
-import { loadUserFavorites } from '../../../actions'
-
+import { getFavorites } from '../../../actions/index.js'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,7 +57,7 @@ const Login = () => {
 
             if (jwtToken) {
                 login(userInfo, jwtToken);
-                // dispatch(loadUserFavorites());
+                dispatch(getFavorites());
                 navigate('/');
             } else {
                 throw new Error('El servidor no retornó un token.');

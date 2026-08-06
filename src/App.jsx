@@ -4,7 +4,7 @@ import Searcher from './components/Searcher'
 import PokemonList from './components/PokemonList'
 import { useEffect, useState } from 'react'
 import { getPokemon } from './api'
-import { getPokemonswithDetails, setLoading } from './actions'
+import { getPokemonswithDetails, setLoading, getFavorites } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
 import iconoPokeApp from './assets/icono-poke-app.png'
 import { Routes, Route, Link } from 'react-router-dom'
@@ -15,11 +15,13 @@ import UserMenu from './components/UserMenu'
 import Register from './components/Auth/Register'
 import Login from './components/Auth/Login'
 import ProtectedRoute from './components/ProtectedRoute'
+import { useAuth } from './hooks/useAuth'
 
 function App() {
   const pokemons = useSelector((state) => state.pokemons.pokemons);
   const loading = useSelector((state) => state.pokemons.loading);
   const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchPokemons = async() => {
@@ -29,6 +31,10 @@ function App() {
       dispatch(setLoading(false));
     }
     fetchPokemons();
+
+    if (isAuthenticated) {
+      dispatch(getFavorites());
+    }
   }, []);
 
   return (
@@ -40,19 +46,18 @@ function App() {
         </Link>
       </Col>
       <UserMenu />
-    <Routes>
-      <Route path="/" element={<PokemonList pokemons={pokemons} loading={loading} />} />
-      <Route path="/pokemon/:id" element={<PokemonDetail />} />
-      <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
-      {/* <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    
-    <footer>
-      <p>Made with ❤️ by <a href="https://github.com/jesusalarcondev" target="_blank" rel="noopener noreferrer">Jesús Alarcón</a></p>
-    </footer>
+      <Routes>
+        <Route path="/" element={<PokemonList pokemons={pokemons} loading={loading} />} />
+        <Route path="/pokemon/:id" element={<PokemonDetail />} />
+        <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      <footer>
+        <p>Made with ❤️ by <a href="https://github.com/jesusalarcondev" target="_blank" rel="noopener noreferrer">Jesús Alarcón</a></p>
+      </footer>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import './index.css';
 import Meta from 'antd/es/card/Meta';
 import StarButton from '../StarButton';
 import { useDispatch } from 'react-redux';
-import { toggleFavorite } from '../../actions';
+import { toggleFavorite, getFavorites } from '../../actions';
 import { Link } from 'react-router-dom';
 import { generationName } from '../../utils/generationName';
 import { useAuth } from '../../hooks/useAuth.js';
@@ -33,6 +33,7 @@ const PokemonCard = ({name, image, isFavorite, types, id, generation}) => {
       return;
     }
     dispatch(toggleFavorite(id));
+    dispatch(getFavorites());
   }
 
   return (

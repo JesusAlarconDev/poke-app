@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import './index.css'
 import StarButton from '../StarButton'
 import { capitalize } from '../../utils/capitalizeUtils'
-import { Link, useNavigate } from 'react-router-dom'
-import { toggleFavorite } from '../../actions'
+import { Link } from 'react-router-dom'
+import { toggleFavorite, getFavorites } from '../../actions'
 import Loading from '../Loading'
 
 const Favorites = () => {
@@ -14,7 +14,8 @@ const Favorites = () => {
   const dispatch = useDispatch();
 
   const handleOnFavorite = (id) => {
-    dispatch(toggleFavorite(id))
+    dispatch(toggleFavorite(id));
+    dispatch(getFavorites());
   }
 
   useEffect(() => {

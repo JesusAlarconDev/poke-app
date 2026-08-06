@@ -37,11 +37,29 @@ export const toggleFavorite = (pokemonId) => async (dispatch, getState) => {
     }
 
     const data = await response.json();
-    dispatch(setFavorite(data.favorites));
   } catch (error) {
     console.error('Error al persistir favorito:', error);
   }
 };
+
+export const getFavorites = () => async (dispatch, getState) => {
+  const token = getState().user.token;
+
+  try {
+    const response = await fetch('/api/users/favorites', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+    dispatch(setFavorite(data.favorites));
+
+  } catch (err) {
+    console.error('Error al cargar favoritos', err);
+  }
+
+}
 
 export const getPokemonswithDetails = 
   (pokemons = []) => 
