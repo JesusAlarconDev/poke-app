@@ -25,10 +25,8 @@ function App() {
 
   useEffect(() => {
     const fetchPokemons = async() => {
-      dispatch(setLoading(true));
       const pokemonRes = await getPokemon();
       dispatch(getPokemonswithDetails(pokemonRes));
-      dispatch(setLoading(false));
     }
     fetchPokemons();
 

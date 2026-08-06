@@ -61,12 +61,15 @@ export const getFavorites = () => async (dispatch, getState) => {
 
 }
 
-export const getPokemonswithDetails = 
-  (pokemons = []) => 
+export const getPokemonswithDetails =
+  (pokemons = []) =>
   async (dispatch) => {
+    dispatch(setLoading(true));
     const pokemonsDetailed = await Promise.all(pokemons.map((pokemon) => getPokemonDetails(pokemon)));
-    
-    dispatch(setPokemons(pokemonsDetailed)); 
+
+    dispatch(setPokemons(pokemonsDetailed));
+    dispatch(setLoading(false));
+    return pokemonsDetailed;
   }
 
 export const setUser = (payload) => ({
