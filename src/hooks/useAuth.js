@@ -34,15 +34,18 @@ export const useAuth = () => {
         dispatch(setUser(userData));
         dispatch(setToken(token));
         localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
     }
 
     const updateUser = (userData) => {
         dispatch(setUser(userData));
+        localStorage.setItem('user', JSON.stringify(userData));
     }
 
     const handleLogout = () => {
         dispatch(logout());
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate('/login');
     }
 

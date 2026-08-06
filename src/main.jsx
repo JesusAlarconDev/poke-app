@@ -23,8 +23,18 @@ const rootReducer = combineReducers({
   user: userReducer
 })
 
+const savedToken = localStorage.getItem('token');
+const savedUser = localStorage.getItem('user');
+const initialState = savedToken ? {
+  user: {
+    token: savedToken,
+    user: savedUser ? JSON.parse(savedUser) : null
+  }
+} : undefined;
+
 const store = createStore(
   rootReducer,
+  initialState,
   composedEnhancers
 );
 
