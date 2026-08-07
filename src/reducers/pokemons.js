@@ -1,4 +1,4 @@
-import { SET_FAVORITE, SET_LOADING, SET_POKEMONS } from "../actions/types";
+import { SET_FAVORITE, SET_LOADING, SET_POKEMONS, LOGOUT } from "../actions/types";
 
 const initialState = {
   pokemons: [],
@@ -10,7 +10,7 @@ export const pokemonsReducer = (state = initialState, action) => {
   switch(action.type){
     case SET_POKEMONS:
       return {
-        ...state, 
+        ...state,
         pokemons: action.payload
       }
     case SET_FAVORITE:
@@ -20,10 +20,15 @@ export const pokemonsReducer = (state = initialState, action) => {
       }
     case SET_LOADING:
       return {
-        ...state, 
+        ...state,
         loading: action.payload
       }
-    default: 
+    case LOGOUT:
+      return {
+        ...state,
+        favorites: []
+      }
+    default:
       return state;
   }
 }
