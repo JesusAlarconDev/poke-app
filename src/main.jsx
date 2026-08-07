@@ -27,8 +27,8 @@ const savedToken = localStorage.getItem('token');
 const savedUser = localStorage.getItem('user');
 const initialState = savedToken ? {
   user: {
-    token: savedToken,
-    user: savedUser ? JSON.parse(savedUser) : null
+    user: savedUser ? JSON.parse(savedUser) : null,
+    token: savedToken
   }
 } : undefined;
 

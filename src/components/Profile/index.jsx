@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { generations } from '../../statics/generations.js'
+import { useAuth } from '../../hooks/useAuth'
 import './index.css'
 
 const Profile = ({ isOpen, onClose }) => {
-    const {user} = useSelector((state) => state.user);
+    const {user, token} = useSelector((state) => state.user);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -16,7 +17,8 @@ const Profile = ({ isOpen, onClose }) => {
     const [selectedGeneration, setSelectedGeneration] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
-
+    const {updateUser} = useAuth();
+    
     useEffect(() => {
         setFormData({
             name: user?.name || '',
@@ -45,7 +47,6 @@ const Profile = ({ isOpen, onClose }) => {
 
     const handleSave = async (e) => {
         e.preventDefault();
-        console.log('Saving profile:', formData);
         setIsEditing(false);
 
         try {
@@ -54,7 +55,7 @@ const Profile = ({ isOpen, onClose }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.token}` 
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData)
             })
@@ -63,7 +64,9 @@ const Profile = ({ isOpen, onClose }) => {
                 throw new Error(errorData.message || 'Error al actualizar el perfil');
             }
             const data = await response.json();
-            console.log('Profile updated:', data);
+            console.log('Server response:', data);
+
+            updateUser(data.user);
         } catch (err) {
             console.error('Error updating profile:', err);
         }
