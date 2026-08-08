@@ -52,9 +52,14 @@ export const getFavorites = () => async (dispatch, getState) => {
       }
     });
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Server error response:', errorData);
+      throw new Error(errorData.message || 'Error al cargar favoritos');
+    }
+
     const data = await response.json();
     dispatch(setFavorite(data.favorites));
-
   } catch (err) {
     console.error('Error al cargar favoritos', err);
   }

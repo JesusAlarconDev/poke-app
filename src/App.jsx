@@ -2,7 +2,7 @@ import './App.css'
 import {Col, Spin} from 'antd'
 import Searcher from './components/Searcher'
 import PokemonList from './components/PokemonList'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getPokemon } from './api'
 import { getPokemonswithDetails, setLoading, getFavorites } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -33,7 +33,8 @@ function App() {
     if (isAuthenticated) {
       dispatch(getFavorites());
     }
-  }, []);
+  }, [isAuthenticated]);
+
 
   return (
     <div className='App'>
