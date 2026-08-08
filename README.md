@@ -1,7 +1,35 @@
 # 🎮 PokeApp
 
 Bienvenido a mi app de Pokemon, PokeApp. Esta app permite listar a todos los 1025 pokemon desde la
-1ra hasta la 9na y última generación. Permite buscarlos, marcar favoritos, y escuchar su descripción de forma similar a como lo hace la pokedex en el anime, diseñado e inspirado en la Pokédex de Kanto. 
+1ra hasta la 9na y última generación. Permite buscarlos, marcar favoritos, y escuchar su descripción de forma similar a como lo hace la pokedex en el anime, diseñado e inspirado en la Pokédex de Kanto.
+
+## 🌿 Ramas del Proyecto
+
+Este proyecto tiene dos ramas principales con diferentes implementaciones:
+
+### 📦 Rama `main` (Backend Integration)
+- **Autenticación completa** con JWT
+- **Base de datos** para persistencia de usuarios y favoritos
+- **Sistema de perfiles** personalizados
+- **API REST** personalizada
+- Ideal para producción y aplicaciones con múltiples usuarios
+
+### 💾 Rama `localstorage` (LocalStorage)
+- **Sin autenticación** requerida
+- **Favoritos almacenados** en localStorage del navegador
+- **Más ligera** y simple
+- Ideal para demostraciones y uso personal
+- **Rama actual** - versión simplificada sin backend
+
+Para cambiar entre ramas:
+```bash
+git checkout main          # Para versión con backend
+git checkout localstorage  # Para versión con localStorage
+``` 
+
+## Backend
+
+Para ver el backend que se utiliza para esta app véase [poke-app-backend](https://github.com/jesusalarcondev/poke-app-backend)
 
 ## 📸 Imágenes
 
@@ -18,25 +46,25 @@ Bienvenido a mi app de Pokemon, PokeApp. Esta app permite listar a todos los 102
   <img src="https://img.youtube.com/vi/w1oqGJVk4NM/hqdefault.jpg" alt="Video Demo" width="600">
 </a>
 
-## 📋 Características
+## Características
 
-### 🌟 Funcionalidades Principales
+### Funcionalidades Principales (Rama LocalStorage)
 - **Catálogo de Pokémon**: Navega y explora las 9 generaciones de Pokemon
-- **Búsqueda**: Filtra y busca Pokémon por nombre
+- **Búsqueda**: Filtra y busca Pokémon por nombre en tiempo real
 - **Detalles Completo**: Vista detallada de cada Pokémon con estadísticas, tipos y generaciones
-- **Favoritos**: Marca tus Pokémon favoritos para acceso rápido
-- **Síntesis de Voz**: Descripción de Pokémon narrada similar a como lo hace la Pokedex original en
-el anime.
-- **Diseño Responsivo**: Optimizado para móviles, tablets y desktops
+- **Favoritos**: Marca tus Pokémon favoritos (almacenados en localStorage)
+- **Síntesis de Voz**: Descripción de Pokémon narrada similar a como lo hace la Pokedex original en el anime
+- **Diseño Responsivo**: Optimizado para móviles, tablets y desktop
+- **Sin Autenticación**: Uso directo sin necesidad de registro
 
-### 🎨 Características Técnicas
+### Características Técnicas
 - **Páginas de Error Personalizadas**: Página 404 temática con Ditto
 - **Datos enlazados**: Datos de 2 endpoints de la API para obtener información detallada de cada Pokemon
 - **Navegación Fluida**: Sistema de rutas con React Router
-- **Estado Global**: Gestión centralizada con Redux
+- **Estado Global**: Gestión centralizada con Redux (para pokemons y favoritos)
 - **UI Moderna**: Componentes de Ant Design
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Frontend
 - **React 19.2.0** 
@@ -84,23 +112,20 @@ npm run dev
 ```
 
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto (Rama LocalStorage)
 
 ```
 src/
 ├── components/          # Componentes React
 │   ├── Loading.jsx      # Componente de carga
-│   ├── PokemonCard.jsx  # Tarjeta de Pokémon
 │   ├── PokemonDetail.jsx # Vista detallada
-│   ├── PokemonList.jsx  # Lista de Pokémon
 │   ├── Searcher.jsx     # Barra de búsqueda
-│   ├── StarButton.jsx   # Botón de favoritos
 │   └── NotFound.jsx     # Página 404 personalizada
 ├── actions/             # Acciones Redux
-│   ├── index.js         # Definición de acciones
+│   ├── index.js         # Definición de acciones (simplificado)
 │   └── types.js         # Tipos de acciones
 ├── reducers/            # Reducers Redux
-│   └── pokemons.js      # Reducer de Pokémon
+│   └── pokemons.js      # Reducer de Pokémon y favoritos (localStorage)
 ├── middlewares/         # Middlewares Redux
 │   └── index.js         # Logger y otros middlewares
 ├── utils/               # Utilidades
@@ -111,10 +136,16 @@ src/
 │   └── index.js         # Cliente API
 ├── assets/              # Recursos estáticos
 │   └── icono-poke-app.png    # Logo de la aplicación
-├── App.jsx              # Componente principal
+├── App.jsx              # Componente principal (con búsqueda integrada)
 ├── main.jsx             # Punto de entrada
 └── index.css            # Estilos globales
 ```
+
+**Nota**: La rama `main` incluye componentes adicionales como:
+- `PokemonCard.jsx`, `PokemonList.jsx`, `StarButton.jsx`
+- `UserMenu.jsx`, `Profile.jsx`, `Favorites.jsx`
+- `Auth/Login.jsx`, `Auth/Register.jsx`
+- `hooks/useAuth.js` para autenticación
 
 ## 🎯 Características Destacadas
 
