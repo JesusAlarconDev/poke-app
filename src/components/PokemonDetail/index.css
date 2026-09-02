@@ -12,7 +12,7 @@
     left: 20px;
 }
 
-.back-button {
+button.back-button {
     background-color: #1890ff;
     border-color: #1890ff;
     border-radius: 8px;
@@ -21,14 +21,14 @@
     transition: all 0.3s ease;
 }
 
-.back-button:hover {
+button.back-button:hover {
     background-color: #40a9ff;
     border-color: #40a9ff;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
 }
 
-.back-button:active {
+button.back-button:active {
     transform: translateY(0);
 }
 
