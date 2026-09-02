@@ -14,7 +14,7 @@ export const getPokemonDetails = (pokemon) => {
 
     return axios.get(speciesUrl).then(res => {
       const speciesData = res.data;
-    
+
     return {
       ...pokemonData,
       generation: speciesData.generation.name
@@ -23,4 +23,14 @@ export const getPokemonDetails = (pokemon) => {
     });
   })
   .catch(error => console.log(error));
+}
+
+export const getPokemonswithDetailsBatch = async (pokemons = [], batchSize = 30) => {
+  const results = [];
+  for (let i = 0; i < pokemons.length; i += batchSize) {
+    const batch = pokemons.slice(i, i + batchSize);
+    const batchResults = await Promise.all(batch.map(pokemon => getPokemonDetails(pokemon)));
+    results.push(...batchResults);
+  }
+  return results;
 }
